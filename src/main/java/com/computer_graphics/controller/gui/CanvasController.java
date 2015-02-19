@@ -6,6 +6,8 @@ import java.net.URL;
 
 
 
+
+
 import org.junit.experimental.theories.DataPoint;
 
 import javafx.animation.Timeline;
@@ -48,8 +50,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Sphere;
 import javafx.scene.shape.TriangleMesh;
 
 public class CanvasController {
@@ -172,10 +176,12 @@ public class CanvasController {
    		
     //	mat = model.getMatrixPoints();
    	
+   		System.out.println("Here");
     	buildScene();
         buildCamera();
         buildAxes();
 //        buildMolecule();
+      
        
         
         ObjModelImporter obj = new ObjModelImporter();
@@ -193,6 +199,8 @@ public class CanvasController {
 		Transformations3D tr = new Transformations3D();
 		mat = tr.Scale(mat, 20, 20, 20);
 		buildCube(mat);
+		
+		  buildLinesSheres();
 	
         setCamera(scene);
         handleMouse(scene, root);
@@ -325,6 +333,35 @@ public class CanvasController {
 	        cameraXform.rx.setAngle(40);
 	    }
 	    
+	    
+	    private void buildLinesSheres()
+	    {
+	    	 System.out.println("buildLines");
+	    	 Sphere nsp = new Sphere(30);
+	    //        nsp.setTranslateX(0);
+	    //        nsp.setTranslateY(0);
+	    //        nsp.setTranslateZ(0);
+	            
+	            final PhongMaterial redMaterial = new PhongMaterial();
+		        redMaterial.setDiffuseColor(Color.DARKRED);
+		        redMaterial.setSpecularColor(Color.RED);
+		        
+		        nsp.setMaterial(redMaterial);
+		        nsp.setVisible(true);
+		   //     redMaterial.setDiffuseColor();
+		        world.getChildren().add(nsp);
+		        
+		        Line blackLine = new Line();
+		        blackLine.setStartX(170);
+	            blackLine.setStartY(30);
+	            blackLine.setEndX(20);
+	            blackLine.setEndY(140);
+	            blackLine.setTranslateZ(10);
+	            blackLine.strokeWidthProperty().set(3);
+	            
+	            world.getChildren().add(blackLine);
+	}
+	    
 	    private void buildAxes() {
 	        System.out.println("buildAxes()");
 	        final PhongMaterial redMaterial = new PhongMaterial();
@@ -343,12 +380,18 @@ public class CanvasController {
 	        final Box yAxis = new Box(1, 240.0, 1);
 	        final Box zAxis = new Box(1, 1, 240.0);
 	        
+	        System.out.println(xAxis.getTranslateX());
+	        
 	        xAxis.setMaterial(redMaterial);
 	        yAxis.setMaterial(greenMaterial);
 	        zAxis.setMaterial(blueMaterial);
 	 
+	        
+            
 	        axisGroup.getChildren().addAll(xAxis, yAxis, zAxis);
 	        world.getChildren().addAll(axisGroup);
+	   //     world.getChildren().add(blackLine)
+	        ;
 	    }
 	    
 	    
@@ -435,6 +478,8 @@ public class CanvasController {
 	                if (me.isPrimaryButtonDown()) {
 	                    cameraXform.ry.setAngle(cameraXform.ry.getAngle() - mouseDeltaX*modifierFactor*modifier*2.0);  // +
 	                    cameraXform.rx.setAngle(cameraXform.rx.getAngle() + mouseDeltaY*modifierFactor*modifier*2.0);  // -
+	            //        System.out.println(camera.getTranslateX()+"+"+camera.getTranslateY()+"+"+camera.getTranslateZ());
+	            //        System.out.println(cameraXform.getTranslateX()+"+"+cameraXform.getTranslateY()+"+"+cameraXform.getTranslateZ());
 	                }
 	                else if (me.isSecondaryButtonDown()) {
 	                    double z = camera.getTranslateZ();

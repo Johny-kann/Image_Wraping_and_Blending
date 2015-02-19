@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<StackPane prefHeight="413.0" prefWidth="684.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.computer_graphics.controller.gui.TestController">
+   <children>
+      <VBox>
+         <children>
+            <AnchorPane>
+               <children>
+                  <AnchorPane fx:id="anchorPane" layoutX="36.0" layoutY="26.0" prefHeight="291.0" prefWidth="613.0">
+                     <children>
+                        <ImageView fx:id="imagesource" fitHeight="291.0" fitWidth="613.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="changeBut" layoutX="58.0" layoutY="25.0" mnemonicParsing="false" onAction="#pressMe" text="Button" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
