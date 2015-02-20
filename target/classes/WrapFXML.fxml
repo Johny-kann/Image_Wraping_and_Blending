@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computer_graphics.controller.gui.TestController">
+<StackPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computer_graphics.controller.gui.WrapController">
    <children>
       <ScrollPane prefViewportHeight="700.0" prefViewportWidth="1200.0">
          <content>

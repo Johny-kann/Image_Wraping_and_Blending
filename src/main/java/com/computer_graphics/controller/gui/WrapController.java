@@ -38,7 +38,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Sphere;
 import javafx.util.Math;
 
-public class TestController {
+public class WrapController {
 	
 //	final Group sourceGroup = new Group();
 ///	final Group destGroup = new Group();
@@ -84,22 +84,7 @@ public class TestController {
     @FXML
     void pressMe(ActionEvent event) {
 
-    	ArrowHead lin1 = (ArrowHead)sourceImageGroup.getLines().getChildren().get(0);
-    	ArrowHead lin2 = (ArrowHead)destImageGroup.getLines().getChildren().get(0);
-    	
-       	 Point2D pt = new Transformations2D().getXYFromUV(sourceImageGroup.getDimUV(), sourceImageGroup.getDimReal(), lin1.getStartP());
-    
-    	 Color color = sourceImageGroup.getImage().getPixelReader().getColor(
-    			 (int)java.lang.Math.round(pt.getX()), 
-    			 (int)java.lang.Math.round(pt.getY())
-    			 );
-   // 	 Background value = new Background(color);
-    	 destAnchor.setBackground(new Background(
-    	 new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-    	 sourceAnchor.setBackground(new Background(
-    	    	 new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     	 new VectorTransformations().applyTransform(sourceImageGroup, destImageGroup);
-    	 
     			
     }
 	
@@ -120,17 +105,12 @@ public class TestController {
 //	 setImageDimension(destImageGroup);
 	 
 	
-	System.out.println(imageSource.getFitHeight());
-	System.out.println(imageSource.getFitWidth());
-	
 	sourceAnchor.getChildren().add(sourceImageGroup.getLines());
 	destAnchor.getChildren().add(destImageGroup.getLines());
 	
 	handleMouse(sourceImageGroup);
 	handleMouse(destImageGroup);
 	
-	System.out.println(sourceImageGroup.getDimReal());
-	System.out.println(sourceImageGroup.getDimUV());
     }
 	
 	private void setImageDimension(ImageGroup imageG)

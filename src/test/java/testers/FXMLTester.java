@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import com.computer_graphics.controller.gui.CanvasController;
-import com.computer_graphics.controller.gui.TestController;
+import com.computer_graphics.controller.gui.WrapController;
 
 public class FXMLTester extends Application{
 
@@ -34,7 +34,7 @@ public class FXMLTester extends Application{
 			
 			StackPane root2 =  fxmlLoader.load(location.openStream());
 			
-			TestController test = fxmlLoader.getController();
+			WrapController test = fxmlLoader.getController();
 		
 			Scene scene = new Scene(root2,800,600,true);
 		

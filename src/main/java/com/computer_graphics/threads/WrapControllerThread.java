@@ -2,7 +2,7 @@ package com.computer_graphics.threads;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.computer_graphics.controller.gui.TestController;
+import com.computer_graphics.controller.gui.WrapController;
 import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.transforms.logics.SmallLogics;
 
