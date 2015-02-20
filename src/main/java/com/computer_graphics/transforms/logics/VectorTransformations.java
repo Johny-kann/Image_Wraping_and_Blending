@@ -3,6 +3,7 @@ package com.computer_graphics.transforms.logics;
 import com.computer_graphics.shapes.custom.ArrowHead;
 import com.computer_graphics.shapes.custom.ImageGroup;
 
+import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -42,27 +43,30 @@ public class VectorTransformations {
 				
 	}
 	
-	public void applyTransform(ImageGroup source,ImageGroup dest)
+	public Image applyTransform(ImageGroup source,final ImageGroup dest,final ImageGroup trans,final Double alpha)
 	{
-		System.out.println(source.getDimReal());
+	SmallLogics sl = new SmallLogics();
 		
-		WritableImage image = new WritableImage(
+		final WritableImage image = new WritableImage(
 				SmallLogics.doubleToInt(source.getDimReal().getWidth()), 
 				SmallLogics.doubleToInt(source.getDimReal().getHeight())
 				);
-//		Image im = image;
 		
 		for(int i=0;i<image.getWidth();i++)
 		{
 			for(int j=0;j<image.getHeight();j++)
 			{
 				ArrowHead lindest = (ArrowHead)dest.getLines().getChildren().get(0);
+			
 				ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(0);
 				
 				Point2D Xsource = getXfromSource(
 						new Point2D(i,j), 
-						lindest.getStartP(),
-						lindest.getEndP(), 
+			//			lindest.getStartP()
+						sl.giveAlphaPoint(linsource.getStartP(), lindest.getStartP(), alpha),
+						
+			//			lindest.getEndP()
+						sl.giveAlphaPoint(linsource.getEndP(), lindest.getEndP(), alpha), 
 						linsource.getStartP(), 
 						linsource.getEndP(), 
 						dest.getDimUV(), 
@@ -87,10 +91,22 @@ public class VectorTransformations {
 			}
 		}
 		
-		dest.getImageView().setImage(image);
 		
-	//	generate.setImage(image);
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				trans.getImageView().setImage(image);
+				System.out.println(alpha);
+				
+			}
+		});
 		
+	
+		return image;
+			
 	}
 	
 	public Point2D getXfromSource(Point2D Xdest, Point2D Pdest, Point2D Qdest,Point2D Psource,Point2D Qsource,Dimension2D uvDest,Dimension2D xyDest

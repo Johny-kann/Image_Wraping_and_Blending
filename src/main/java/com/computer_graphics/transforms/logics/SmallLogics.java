@@ -42,6 +42,11 @@ public class SmallLogics {
 		return new Point2D(point.getY(), -point.getX());
 	}
 	
+	public Point2D giveAlphaPoint(Point2D startP,Point2D endP,Double alpha)
+	{
+		return (startP.multiply(1-alpha)).add(endP.multiply(alpha));
+	}
+	
 	public boolean dimensionZeroCheck(Image image)
 	{
 		return image.getHeight()==0?true:false;

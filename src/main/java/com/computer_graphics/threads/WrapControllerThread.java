@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.computer_graphics.controller.gui.WrapController;
 import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.transforms.logics.SmallLogics;
+import com.computer_graphics.transforms.logics.VectorTransformations;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -46,7 +47,29 @@ public class WrapControllerThread {
 				};
 			}
 		};
+   	}
+   	
+   	public void convertImageViews(final ImageGroup source,final ImageGroup dest,final ImageGroup trans,final Double alpha)
+   	{
+   		worker = new Service<String>() {
 
+			@Override
+			protected Task<String> createTask() {
+				// TODO Auto-generated method stub
+				return new Task<String>() {
+
+					@Override
+					protected String call() throws Exception {
+						// TODO Auto-generated method stub
+					
+						new VectorTransformations().applyTransform(source, dest, trans,alpha);
+						
+						return "Transformed";
+					}
+					
+				};
+			}
+		};
    	}
 	
 }

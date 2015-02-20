@@ -14,6 +14,9 @@ import com.computer_graphics.transforms.logics.VectorTransformations;
 import com.computer_graphics.transforms.logics.Xform;
 import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,6 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,8 +47,10 @@ public class WrapController {
 //	final Group sourceGroup = new Group();
 ///	final Group destGroup = new Group();
 	
+	WrapController myClass;
 	ImageGroup sourceImageGroup ;
 	ImageGroup destImageGroup ;
+	ImageGroup transImageGroup;
 	
 	final PerspectiveCamera camera = new PerspectiveCamera(true);
     final Xform cameraXform = new Xform();
@@ -79,12 +85,29 @@ public class WrapController {
 	@FXML
     private ImageView imageSource;
 	
-	
+	 @FXML
+	 private AnchorPane transAnchor;
+	 
+	 @FXML
+	 private ImageView imageTrans;
+	 
+	 @FXML
+	 private Slider transSlider;
 
+	 private WrapControllerThread convertThread;
+	 
+	 public Double newTrans=1.0;
+	 
     @FXML
     void pressMe(ActionEvent event) {
 
-    	 new VectorTransformations().applyTransform(sourceImageGroup, destImageGroup);
+    	
+    //	 new VectorTransformations().applyTransform(sourceImageGroup, destImageGroup);
+    	
+    //	WrapControllerThread model = new WrapControllerThread();
+        convertThread.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0);
+        
+        ((Service)convertThread.worker).restart();
     			
     }
 	
@@ -93,6 +116,8 @@ public class WrapController {
 	@FXML
     void initialize() {
 		
+		myClass = this;
+	convertThread = new WrapControllerThread();
 	 Image image = new Image(FileConstants.SOURCE_IMAGE, true);     
 	 imageSource.setImage(image);
 	 sourceImageGroup = new ImageGroup(imageSource);
@@ -104,21 +129,61 @@ public class WrapController {
 	 destImageGroup = new ImageGroup(imageDest);
 //	 setImageDimension(destImageGroup);
 	 
+	 Image image3 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
+	 imageTrans.setImage(image3);
+	 transImageGroup = new ImageGroup(imageTrans);
+	 
+	
 	
 	sourceAnchor.getChildren().add(sourceImageGroup.getLines());
 	destAnchor.getChildren().add(destImageGroup.getLines());
+	transAnchor.getChildren().add(transImageGroup.getLines());
 	
 	handleMouse(sourceImageGroup);
 	handleMouse(destImageGroup);
-	
+	iniListeners();
     }
 	
-	private void setImageDimension(ImageGroup imageG)
+	public void setImageDimension(ImageGroup group,Image image,Double alpha)
 	{
-		WrapControllerThread model = new WrapControllerThread();
-        model.checkConnection(imageG);
-        ((Service)model.worker).restart();
+		if(alpha==newTrans)
+		{
+			group.setImage(image);
+			
+		}
        
+	}
+	
+	private void iniListeners()
+	{
+		transSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                    Number old_val, final Number new_val) {
+               
+            	Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+			//			WrapControllerThread model = new WrapControllerThread();
+						if(convertThread.worker.isRunning())
+						{
+					//		System.out.println("True");
+							convertThread.worker.cancel();
+						}
+						
+						newTrans = new_val.doubleValue();
+				        convertThread.convertImageViews(sourceImageGroup, destImageGroup, transImageGroup,new_val.doubleValue());
+				        
+				        ((Service)convertThread.worker).restart();
+					
+					}
+				});
+            	
+            }
+            	
+		});
+		
 	}
 	
 	private void handleMouse(final ImageGroup parentNode) {

@@ -23,7 +23,7 @@ public class FXMLTester extends Application{
 			
 			loader.setBuilderFactory(new JavaFXBuilderFactory());
 			
-			URL location = getClass().getResource("/TestFXML.fxml");
+			URL location = getClass().getResource("/WrapFXML.fxml");
 		
 			
 			FXMLLoader fxmlLoader = new FXMLLoader();
