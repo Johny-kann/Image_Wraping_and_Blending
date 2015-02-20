@@ -11,8 +11,7 @@ public class ImageGroup extends Group{
 	private ImageView imageView;
 	private Image image;
 	private Group lines;
-	private Dimension2D dimUV;
-	private Dimension2D dimReal;
+	
 	
 	public ImageGroup(ImageView imageV)
 	{
@@ -20,9 +19,10 @@ public class ImageGroup extends Group{
 		this.image = imageV.getImage();
 		this.imageView = imageV;
 		this.lines = new Group();
+		this.imageView.setPreserveRatio(false);
 		
-		this.dimUV = new Dimension2D(imageView.getFitWidth(), imageView.getFitHeight());
-		this.dimReal = new Dimension2D(image.getWidth(), image.getHeight());
+		
+		
 	}
 	
 	public ImageView getImageView() {
@@ -66,26 +66,18 @@ public class ImageGroup extends Group{
 	}
 
 	public Dimension2D getDimUV() {
-		return dimUV;
+		return new Dimension2D(imageView.getFitWidth(), imageView.getFitHeight());
 	}
 
-	public void setDimUV(Dimension2D dimUV) {
-		this.dimUV = dimUV;
-	}
-
+	
 	public Dimension2D getDimReal() {
-		return dimReal;
+		return new Dimension2D(image.getWidth(), image.getHeight());
 	}
 
-	public void setDimReal(Dimension2D dimReal) {
-		this.dimReal = dimReal;
-	}
-
-	public void calculateDimensionForImage() {
+	
+/*	public void calculateDimensionForImage() {
 		// TODO Auto-generated method stub
-		this.dimReal = new Dimension2D(
-				image.getWidth(), 
-				image.getHeight());
-	}
+	
+	}*/
 	
 }

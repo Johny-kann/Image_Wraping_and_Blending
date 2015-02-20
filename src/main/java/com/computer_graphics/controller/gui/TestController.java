@@ -10,6 +10,7 @@ import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.threads.WrapControllerThread;
 import com.computer_graphics.transforms.logics.SmallLogics;
 import com.computer_graphics.transforms.logics.Transformations2D;
+import com.computer_graphics.transforms.logics.VectorTransformations;
 import com.computer_graphics.transforms.logics.Xform;
 import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
 
@@ -95,6 +96,10 @@ public class TestController {
    // 	 Background value = new Background(color);
     	 destAnchor.setBackground(new Background(
     	 new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+    	 sourceAnchor.setBackground(new Background(
+    	    	 new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+    	 new VectorTransformations().applyTransform(sourceImageGroup, destImageGroup);
+    	 
     			
     }
 	
@@ -106,13 +111,13 @@ public class TestController {
 	 Image image = new Image(FileConstants.SOURCE_IMAGE, true);     
 	 imageSource.setImage(image);
 	 sourceImageGroup = new ImageGroup(imageSource);
-	 setImageDimension(sourceImageGroup);
+//	 setImageDimension(sourceImageGroup);
 	 
 	 	 
 	 Image image2 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
 	 imageDest.setImage(image2);
 	 destImageGroup = new ImageGroup(imageDest);
-	 setImageDimension(destImageGroup);
+//	 setImageDimension(destImageGroup);
 	 
 	
 	System.out.println(imageSource.getFitHeight());

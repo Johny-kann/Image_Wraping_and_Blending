@@ -47,4 +47,9 @@ public class SmallLogics {
 		return image.getHeight()==0?true:false;
 	}
 	
+	public static int doubleToInt(Double x)
+	{
+		return (int)Math.round(x);
+	}
+	
 }

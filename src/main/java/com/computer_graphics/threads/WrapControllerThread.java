@@ -39,7 +39,7 @@ public class WrapControllerThread {
 							{
 							Thread.sleep(100);
 							};
-						group.calculateDimensionForImage();
+					//	group.calculateDimensionForImage();
 											
 						return "Completed";
 					}
