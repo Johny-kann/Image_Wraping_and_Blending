@@ -1,5 +1,7 @@
 package com.computer_graphics.transforms.logics;
 
+import com.computer_graphics.shapes.custom.ImageGroup;
+
 import javafx.geometry.Point2D;
 
 public class VectorTransformations {
@@ -28,9 +30,12 @@ public class VectorTransformations {
 		
 		Point2D one = P1;
 		
-		return one.add(two).add(third)
-				;
-
+		return one.add(two).add(third);
 				
+	}
+	
+	public void applyTransform(ImageGroup ref,ImageGroup generate)
+	{
+		
 	}
 }

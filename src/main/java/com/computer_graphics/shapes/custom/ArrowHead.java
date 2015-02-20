@@ -11,10 +11,20 @@ import javafx.scene.shape.Shape;
 
 public class ArrowHead extends Polyline {
 
+	private Point2D startP;
+	private Point2D endP;
 	
-	public ArrowHead()
+	public ArrowHead(Double startX,Double startY,Double endX,Double endY)
 	{
-	
+		Point2D pt = new SmallLogics().findArrowPoint(startX, startY, endX, endY);
+		
+		startP = new Point2D(startX, startY);
+		endP = new Point2D(endX, endY);
+		
+		getPoints().addAll(new Double[]{
+				startX , startY,
+				endX , endY,
+				pt.getX() , pt.getY()});
 	}
 
 	
@@ -22,10 +32,30 @@ public class ArrowHead extends Polyline {
 	{
 		Point2D pt = new SmallLogics().findArrowPoint(startX, startY, endX, endY);
 		
-		getPoints().addAll(new Double[]{
+		getPoints().setAll(new Double[]{
 				startX , startY,
 				endX , endY,
 				pt.getX() , pt.getY()});
+	}
+
+
+	public Point2D getStartP() {
+		return startP;
+	}
+
+
+	public void setStartP(Point2D startP) {
+		this.startP = startP;
+	}
+
+
+	public Point2D getEndP() {
+		return endP;
+	}
+
+
+	public void setEndP(Point2D endP) {
+		this.endP = endP;
 	}
 	
 }

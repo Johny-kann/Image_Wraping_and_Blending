@@ -8,6 +8,7 @@ import com.computer_graphics.constants.files.FileConstants;
 import com.computer_graphics.shapes.custom.ArrowHead;
 import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.threads.WrapControllerThread;
+import com.computer_graphics.transforms.logics.SmallLogics;
 import com.computer_graphics.transforms.logics.Transformations2D;
 import com.computer_graphics.transforms.logics.Xform;
 import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -27,9 +29,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Sphere;
+import javafx.util.Math;
 
 public class TestController {
 	
@@ -77,16 +83,19 @@ public class TestController {
     @FXML
     void pressMe(ActionEvent event) {
 
-    //	blackLine.setTranslateZ(3);
-    //	anchorPane.setTranslateZ(-3);
-    
-    	System.out.println(imageSource.getImage().getHeight());
-    	System.out.println(imageSource.getImage().getWidth());
+    	ArrowHead lin1 = (ArrowHead)sourceImageGroup.getLines().getChildren().get(0);
+    	ArrowHead lin2 = (ArrowHead)destImageGroup.getLines().getChildren().get(0);
     	
-    //	Dimension2D uvSource = new Dimension2D(imageSource.getFitWidth(), imageSource.getFitHeight());
-    //	Dimension2D uvDestination = new Dimension2D(imageSource.getImage().getWidth(), imageSource.getImage().getHeight());
-    //	System.out.println(new Transformations2D().getXYFromUV(uvSource, uvDestination, new Point2D(600, 280)
-    //	));
+       	 Point2D pt = new Transformations2D().getXYFromUV(sourceImageGroup.getDimUV(), sourceImageGroup.getDimReal(), lin1.getStartP());
+    
+    	 Color color = sourceImageGroup.getImage().getPixelReader().getColor(
+    			 (int)java.lang.Math.round(pt.getX()), 
+    			 (int)java.lang.Math.round(pt.getY())
+    			 );
+   // 	 Background value = new Background(color);
+    	 destAnchor.setBackground(new Background(
+    	 new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+    			
     }
 	
 	
@@ -94,11 +103,6 @@ public class TestController {
 	@FXML
     void initialize() {
 		
-	        
-	  //          blackLine.setTranslateZ(10);
-	            
-	         
-	            
 	 Image image = new Image(FileConstants.SOURCE_IMAGE, true);     
 	 imageSource.setImage(image);
 	 sourceImageGroup = new ImageGroup(imageSource);
@@ -173,12 +177,10 @@ public class TestController {
 	
 	private void drawLine(int index,Node lines)
 	{
-		ArrowHead line = new ArrowHead();
+		ArrowHead line = new ArrowHead(mouseOldX, mouseOldY, mousePosX, mousePosY);
 	
-		line.setPoints(mouseOldX, mouseOldY, mousePosX, mousePosY);
+//		line.setPoints(mouseOldX, mouseOldY, mousePosX, mousePosY);
 
-		
-		
 		try
 		{
 		//	Line lines = (Line)lineGroup.getChildren().get(lineIndex);

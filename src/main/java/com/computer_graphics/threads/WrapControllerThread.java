@@ -37,7 +37,6 @@ public class WrapControllerThread {
 						while(
 						new SmallLogics().dimensionZeroCheck(group.getImage())==true)
 							{
-								System.out.println("Inside thread");
 							Thread.sleep(100);
 							};
 						group.calculateDimensionForImage();
