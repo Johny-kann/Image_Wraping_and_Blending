@@ -7,10 +7,12 @@ import ch.qos.logback.core.pattern.color.BlackCompositeConverter;
 import com.computer_graphics.constants.files.FileConstants;
 import com.computer_graphics.shapes.custom.ArrowHead;
 import com.computer_graphics.shapes.custom.ImageGroup;
+import com.computer_graphics.threads.WrapControllerThread;
 import com.computer_graphics.transforms.logics.Transformations2D;
 import com.computer_graphics.transforms.logics.Xform;
 import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
 
+import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -81,10 +83,10 @@ public class TestController {
     	System.out.println(imageSource.getImage().getHeight());
     	System.out.println(imageSource.getImage().getWidth());
     	
-    	Dimension2D uvSource = new Dimension2D(imageSource.getFitWidth(), imageSource.getFitHeight());
-    	Dimension2D uvDestination = new Dimension2D(imageSource.getImage().getWidth(), imageSource.getImage().getHeight());
-    	System.out.println(new Transformations2D().getXYFromUV(uvSource, uvDestination, new Point2D(600, 280)
-    	));
+    //	Dimension2D uvSource = new Dimension2D(imageSource.getFitWidth(), imageSource.getFitHeight());
+    //	Dimension2D uvDestination = new Dimension2D(imageSource.getImage().getWidth(), imageSource.getImage().getHeight());
+    //	System.out.println(new Transformations2D().getXYFromUV(uvSource, uvDestination, new Point2D(600, 280)
+    //	));
     }
 	
 	
@@ -100,16 +102,17 @@ public class TestController {
 	 Image image = new Image(FileConstants.SOURCE_IMAGE, true);     
 	 imageSource.setImage(image);
 	 sourceImageGroup = new ImageGroup(imageSource);
+	 setImageDimension(sourceImageGroup);
+	 
 	 	 
 	 Image image2 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
 	 imageDest.setImage(image2);
 	 destImageGroup = new ImageGroup(imageDest);
+	 setImageDimension(destImageGroup);
 	 
 	
 	System.out.println(imageSource.getFitHeight());
 	System.out.println(imageSource.getFitWidth());
-//	System.out.println(imagesource.getImage().getHeight());
-//	sourceGroup.getChildren().add();
 	
 	sourceAnchor.getChildren().add(sourceImageGroup.getLines());
 	destAnchor.getChildren().add(destImageGroup.getLines());
@@ -117,8 +120,17 @@ public class TestController {
 	handleMouse(sourceImageGroup);
 	handleMouse(destImageGroup);
 	
-	
+	System.out.println(sourceImageGroup.getDimReal());
+	System.out.println(sourceImageGroup.getDimUV());
     }
+	
+	private void setImageDimension(ImageGroup imageG)
+	{
+		WrapControllerThread model = new WrapControllerThread();
+        model.checkConnection(imageG);
+        ((Service)model.worker).restart();
+       
+	}
 	
 	private void handleMouse(final ImageGroup parentNode) {
       

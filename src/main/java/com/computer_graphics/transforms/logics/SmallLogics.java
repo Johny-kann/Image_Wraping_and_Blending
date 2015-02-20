@@ -1,6 +1,8 @@
 package com.computer_graphics.transforms.logics;
 
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import Jama.Matrix;
 
 public class SmallLogics {
@@ -34,4 +36,15 @@ public class SmallLogics {
 		
 		return mat;
 	}
+	
+	public Point2D findPerpendicular(Point2D point)
+	{
+		return new Point2D(point.getY(), -point.getX());
+	}
+	
+	public boolean dimensionZeroCheck(Image image)
+	{
+		return image.getHeight()==0?true:false;
+	}
+	
 }

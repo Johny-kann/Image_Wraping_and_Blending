@@ -1,15 +1,24 @@
 package testers;
 
-import javafx.geometry.Point2D;
+import com.computer_graphics.transforms.logics.VectorTransformations;
 
-import com.computer_graphics.transforms.logics.SmallLogics;
-import com.sun.corba.se.impl.interceptors.PINoOpHandlerImpl;
+import javafx.geometry.Point2D;
 
 public class UnitTesters {
 
 	public static void main(String args[])
 	{
-		Point2D pt = new SmallLogics().findArrowPoint(2.0, 3.0, 10.0, 10.0);
-	//	System.out.println(pt.getX()+","+pt.getY());
+				
+		Point2D P = new Point2D(0, 0);
+		Point2D P1 = new Point2D(4, 0);
+		Point2D Q = new Point2D(0,4);
+		Point2D Q1 = new Point2D(0,0);
+		Point2D X = new Point2D(3,4);
+		
+		
+		Point2D uv = new VectorTransformations().findUVForDestination(X, P, Q);
+		
+		
+		System.out.println(new VectorTransformations().findXFromUV(P1, Q1, uv));
 	}
 }
