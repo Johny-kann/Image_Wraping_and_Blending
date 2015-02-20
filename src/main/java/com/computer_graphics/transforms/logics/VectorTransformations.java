@@ -92,7 +92,7 @@ public class VectorTransformations {
 		}
 		
 		
-		Platform.runLater(new Runnable() {
+	/*	Platform.runLater(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -102,7 +102,7 @@ public class VectorTransformations {
 				System.out.println(alpha);
 				
 			}
-		});
+		});*/
 		
 	
 		return image;

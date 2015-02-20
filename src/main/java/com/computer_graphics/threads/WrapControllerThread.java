@@ -7,6 +7,7 @@ import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.transforms.logics.SmallLogics;
 import com.computer_graphics.transforms.logics.VectorTransformations;
 
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
@@ -61,8 +62,18 @@ public class WrapControllerThread {
 					@Override
 					protected String call() throws Exception {
 						// TODO Auto-generated method stub
-					
-						new VectorTransformations().applyTransform(source, dest, trans,alpha);
+					final Image image = new VectorTransformations().applyTransform(source, dest, trans,alpha);
+				
+						Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							trans.getImageView().setImage(image);
+							
+						}
+					});
+						
 						
 						return "Transformed";
 					}

@@ -9,14 +9,14 @@ public class ImageGroup extends Group{
 
 	private int index;
 	private ImageView imageView;
-	private Image image;
+//	private Image image;
 	private Group lines;
 	
 	
 	public ImageGroup(ImageView imageV)
 	{
 		this.index=-1;
-		this.image = imageV.getImage();
+	//	this.image = imageV.getImage();
 		this.imageView = imageV;
 		this.lines = new Group();
 		this.imageView.setPreserveRatio(false);
@@ -34,11 +34,11 @@ public class ImageGroup extends Group{
 	}
 
 	public Image getImage() {
-		return image;
+		return imageView.getImage();
 	}
 
 	public void setImage(Image image) {
-		this.image = image;
+		imageView.setImage(image);
 	}
 
 	public Group getLines() {
@@ -71,7 +71,7 @@ public class ImageGroup extends Group{
 
 	
 	public Dimension2D getDimReal() {
-		return new Dimension2D(image.getWidth(), image.getHeight());
+		return new Dimension2D(imageView.getImage().getWidth(), imageView.getImage().getHeight());
 	}
 
 	
