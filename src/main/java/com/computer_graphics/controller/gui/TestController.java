@@ -6,12 +6,16 @@ import ch.qos.logback.core.pattern.color.BlackCompositeConverter;
 
 import com.computer_graphics.constants.files.FileConstants;
 import com.computer_graphics.shapes.custom.ArrowHead;
+import com.computer_graphics.shapes.custom.ImageGroup;
+import com.computer_graphics.transforms.logics.Transformations2D;
 import com.computer_graphics.transforms.logics.Xform;
 import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
@@ -27,15 +31,19 @@ import javafx.scene.shape.Sphere;
 
 public class TestController {
 	
-	final Group root = new Group();
-	final Group lineGroup = new Group();
+//	final Group sourceGroup = new Group();
+///	final Group destGroup = new Group();
+	
+	ImageGroup sourceImageGroup ;
+	ImageGroup destImageGroup ;
+	
 	final PerspectiveCamera camera = new PerspectiveCamera(true);
     final Xform cameraXform = new Xform();
     final Xform cameraXform2 = new Xform();
     final Xform cameraXform3 = new Xform();
     final double cameraDistance = 30;
     
-    Line blackLine = new Line();
+
     
     double mousePosX;
     double mousePosY;
@@ -44,25 +52,39 @@ public class TestController {
     double mouseDeltaX;
     double mouseDeltaY;
     
-    int lineIndex = 0;
+ //   int lineIndex = -1;
 	
 	@FXML
-    private AnchorPane anchorPane;
+    private AnchorPane sourceAnchor;
+	
+	@FXML
+    private AnchorPane destAnchor;
+	
+	@FXML
+    private ImageView imageDest;
+
 
 	@FXML
     private Button changeBut;
 	
 	@FXML
-    private ImageView imagesource;
+    private ImageView imageSource;
+	
+	
 
     @FXML
     void pressMe(ActionEvent event) {
 
     //	blackLine.setTranslateZ(3);
     //	anchorPane.setTranslateZ(-3);
-    	blackLine.setTranslateX(50);
-    	System.out.println(imagesource.getImage().getHeight());
-    	System.out.println(imagesource.getImage().getWidth());
+    
+    	System.out.println(imageSource.getImage().getHeight());
+    	System.out.println(imageSource.getImage().getWidth());
+    	
+    	Dimension2D uvSource = new Dimension2D(imageSource.getFitWidth(), imageSource.getFitHeight());
+    	Dimension2D uvDestination = new Dimension2D(imageSource.getImage().getWidth(), imageSource.getImage().getHeight());
+    	System.out.println(new Transformations2D().getXYFromUV(uvSource, uvDestination, new Point2D(600, 280)
+    	));
     }
 	
 	
@@ -70,45 +92,48 @@ public class TestController {
 	@FXML
     void initialize() {
 		
-	            blackLine.setStartX(1);
-	            blackLine.setStartY(1);
-	            blackLine.setEndX(20);
-	            blackLine.setEndY(140);
+	        
 	  //          blackLine.setTranslateZ(10);
 	            
 	         
 	            
-	 Image image = new Image(FileConstants.SOURCE_IMAGE, true);        
-
-	 imagesource.setImage(image);
-		root.getChildren().add(blackLine);
-	//	root.getChildren().add(nsp);
-		
-	//	buildCamera();
-		
+	 Image image = new Image(FileConstants.SOURCE_IMAGE, true);     
+	 imageSource.setImage(image);
+	 sourceImageGroup = new ImageGroup(imageSource);
+	 	 
+	 Image image2 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
+	 imageDest.setImage(image2);
+	 destImageGroup = new ImageGroup(imageDest);
+	 
 	
-	System.out.println(imagesource.getFitHeight());
-	System.out.println(imagesource.getFitWidth());
-	root.getChildren().add(lineGroup);
-	anchorPane.getChildren().add(root);
+	System.out.println(imageSource.getFitHeight());
+	System.out.println(imageSource.getFitWidth());
+//	System.out.println(imagesource.getImage().getHeight());
+//	sourceGroup.getChildren().add();
 	
+	sourceAnchor.getChildren().add(sourceImageGroup.getLines());
+	destAnchor.getChildren().add(destImageGroup.getLines());
 	
-	handleMouse(imagesource, root);
+	handleMouse(sourceImageGroup);
+	handleMouse(destImageGroup);
+	
 	
     }
 	
-	private void handleMouse(Node scene, final Node root) {
-        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+	private void handleMouse(final ImageGroup parentNode) {
+      
+		parentNode.getImageView().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent me) {
          //       mousePosX = me.getX();
          //       mousePosY = me.getY();
                 mouseOldX = me.getX();
                 mouseOldY = me.getY();
-                lineIndex++;
+                parentNode.addIndex();
+                            
          //       System.out.println(mousePosX);
             }
         });
-        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		parentNode.getImageView().setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent me) {
          
                 mousePosX = me.getX();
@@ -127,33 +152,32 @@ public class TestController {
                 }     
                 if (me.isPrimaryButtonDown()) {
  
-                	drawLine(lineIndex);
+                	drawLine(parentNode.getIndex()	, parentNode.getLines());
                 }
             
             }
         });
     }
 	
-	private void drawLine(int index)
+	private void drawLine(int index,Node lines)
 	{
 		ArrowHead line = new ArrowHead();
 	
 		line.setPoints(mouseOldX, mouseOldY, mousePosX, mousePosY);
-//		line.setStartX(mouseOldX);
-//		line.setStartY(mouseOldY);
-//		line.setEndX(mousePosX);
-	//	line.setEndY(mousePosY);
+
 		
 		
 		try
 		{
 		//	Line lines = (Line)lineGroup.getChildren().get(lineIndex);
-			lineGroup.getChildren().set(index, line);
+			((Group) lines).getChildren().set(index, line);
+		
 			
 		}catch(IndexOutOfBoundsException ne)
 		{
 			
-			lineGroup.getChildren().add(line);
+			((Group) lines).
+			getChildren().add(line);
 		}
 
 	}

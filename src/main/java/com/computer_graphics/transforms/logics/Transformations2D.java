@@ -1,5 +1,8 @@
 package com.computer_graphics.transforms.logics;
 
+import com.sun.javafx.geom.Dimension2D;
+
+import javafx.geometry.Point2D;
 import Jama.Matrix;
 
 /**
@@ -88,6 +91,14 @@ public class Transformations2D {
 	}
 	
 	
-	
+	public Point2D getXYFromUV(javafx.geometry.Dimension2D uvSource,javafx.geometry.Dimension2D uvDestination,Point2D point)
+	{
+		
+		Point2D convertedPoint = new Point2D(
+				uvDestination.getWidth()*point.getX()/uvSource.getWidth(),
+				uvDestination.getHeight()*point.getY()/uvSource.getHeight()
+				); 
+		return convertedPoint;
+	}
 	
 }

@@ -34,8 +34,6 @@ public class FXMLTester extends Application{
 			
 			StackPane root2 =  fxmlLoader.load(location.openStream());
 			
-		
-	//		CanvasController basementController = fxmlLoader.getController();
 			TestController test = fxmlLoader.getController();
 		
 			Scene scene = new Scene(root2,800,600,true);

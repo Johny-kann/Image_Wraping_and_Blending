@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -7,26 +8,38 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<StackPane prefHeight="413.0" prefWidth="684.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.computer_graphics.controller.gui.TestController">
+<StackPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computer_graphics.controller.gui.TestController">
    <children>
-      <VBox>
-         <children>
+      <ScrollPane prefViewportHeight="700.0" prefViewportWidth="1200.0">
+         <content>
             <AnchorPane>
                <children>
-                  <AnchorPane fx:id="anchorPane" layoutX="36.0" layoutY="26.0" prefHeight="291.0" prefWidth="613.0">
+                  <AnchorPane fx:id="sourceAnchor" layoutX="36.0" layoutY="26.0" prefHeight="291.0" prefWidth="462.0">
                      <children>
-                        <ImageView fx:id="imagesource" fitHeight="291.0" fitWidth="613.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ImageView fx:id="imageSource" fitHeight="291.0" fitWidth="455.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="79.0" layoutY="317.0" prefHeight="238.0" prefWidth="410.0">
+                     <children>
+                        <Button fx:id="changeBut" layoutX="75.0" layoutY="80.0" mnemonicParsing="false" onAction="#pressMe" text="Button" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="destAnchor" layoutX="707.0" layoutY="26.0" prefHeight="291.0" prefWidth="462.0">
+                     <children>
+                        <ImageView fx:id="imageDest" fitHeight="291.0" fitWidth="455.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="changeBut" layoutX="58.0" layoutY="25.0" mnemonicParsing="false" onAction="#pressMe" text="Button" />
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </StackPane>
