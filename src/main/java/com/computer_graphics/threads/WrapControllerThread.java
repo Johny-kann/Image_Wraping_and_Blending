@@ -50,7 +50,7 @@ public class WrapControllerThread {
 		};
    	}
    	
-   	public void convertImageViews(final ImageGroup source,final ImageGroup dest,final ImageGroup trans,final Double alpha)
+   	public void convertImageViews(final ImageGroup source,final ImageGroup dest,final ImageGroup trans,final Double alpha,final WrapController wrap)
    	{
    		worker = new Service<String>() {
 
@@ -69,7 +69,8 @@ public class WrapControllerThread {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							trans.getImageView().setImage(image);
+				
+							wrap.setImageDimension(trans, image, alpha);
 							
 						}
 					});

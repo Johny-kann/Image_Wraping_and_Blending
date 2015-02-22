@@ -25,7 +25,6 @@ public class FXMLTester extends Application{
 			
 			URL location = getClass().getResource("/WrapFXML.fxml");
 		
-			
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			
 			fxmlLoader.setLocation(location);

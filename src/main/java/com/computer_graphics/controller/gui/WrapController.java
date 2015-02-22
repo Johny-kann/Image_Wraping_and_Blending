@@ -105,7 +105,7 @@ public class WrapController {
     //	 new VectorTransformations().applyTransform(sourceImageGroup, destImageGroup);
     	
     //	WrapControllerThread model = new WrapControllerThread();
-        convertThread.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0);
+        convertThread.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0, myClass);
         
         ((Service)convertThread.worker).restart();
     			
@@ -146,9 +146,11 @@ public class WrapController {
 	
 	public void setImageDimension(ImageGroup group,Image image,Double alpha)
 	{
-		if(alpha==newTrans)
+		
+		if(alpha.equals(newTrans))
 		{
-			group.setImage(image);
+			group.getImageView().setImage(image);
+			
 			
 		}
        
@@ -173,7 +175,8 @@ public class WrapController {
 						}
 						
 						newTrans = new_val.doubleValue();
-				        convertThread.convertImageViews(sourceImageGroup, destImageGroup, transImageGroup,new_val.doubleValue());
+				        convertThread.
+				        convertImageViews(sourceImageGroup, destImageGroup, transImageGroup,new_val.doubleValue(), myClass);
 				        
 				        ((Service)convertThread.worker).restart();
 					
