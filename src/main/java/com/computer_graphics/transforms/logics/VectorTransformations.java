@@ -56,27 +56,10 @@ public class VectorTransformations {
 		{
 			for(int j=0;j<image.getHeight();j++)
 			{
-				ArrowHead lindest = (ArrowHead)dest.getLines().getChildren().get(0);
-			
-				ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(0);
-				
-				Point2D Xsource = getXfromSource(
-						new Point2D(i,j), 
-			//			lindest.getStartP()
-						sl.giveAlphaPoint(linsource.getStartP(), lindest.getStartP(), alpha),
-						
-			//			lindest.getEndP()
-						sl.giveAlphaPoint(linsource.getEndP(), lindest.getEndP(), alpha), 
-						linsource.getStartP(), 
-						linsource.getEndP(), 
-						dest.getDimUV(), 
-						new Dimension2D(image.getWidth(), image.getHeight())
-						, source.getDimUV(), 
-						source.getDimReal());
-				
-				
 				try
 				{
+					Point2D Xsource = getXAveragingAllLines(source, dest, trans, alpha, i, j, image);
+					
 					image.getPixelWriter().setColor(i, j, 
 						source.getImage().getPixelReader().getColor(
 								SmallLogics.doubleToInt(Xsource.getX()), 
@@ -107,6 +90,36 @@ public class VectorTransformations {
 	
 		return image;
 			
+	}
+	
+	
+	/**
+	 * Computes X by finding the weighted average of all the lines employed by the paper
+	 * @return Point X in source
+	 */
+	public Point2D getXAveragingAllLines(ImageGroup source, ImageGroup destination, ImageGroup trans, Double alpha,int x,int y,Image image)
+	{
+		SmallLogics sl = new SmallLogics();
+		
+		ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(0);
+		
+		ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(0);
+		
+		Point2D Xsource = getXfromSource(
+				new Point2D(x,y), 
+	
+				sl.giveAlphaPoint(linsource.getStartP(), lindest.getStartP(), alpha),
+					
+				sl.giveAlphaPoint(linsource.getEndP(), lindest.getEndP(), alpha), 
+				linsource.getStartP(), 
+				linsource.getEndP(), 
+				destination.getDimUV(), 
+				new Dimension2D(image.getWidth(), image.getHeight())
+				, source.getDimUV(), 
+				source.getDimReal());
+		
+		return Xsource;
+		
 	}
 	
 	public Point2D getXfromSource(Point2D Xdest, Point2D Pdest, Point2D Qdest,Point2D Psource,Point2D Qsource,Dimension2D uvDest,Dimension2D xyDest
