@@ -37,5 +37,7 @@ public class UnitTesters {
 //		System.out.println(vect);
 		
 	//	System.out.println(vec.findXFromUV(new Point2D(1, 0), new Point2D(1, 5), new Point2D(1, 1)));
+	
+	System.out.println(sl.calculateWeight(400.0, 1.0, .5, 1.0, 1.0));
 	}
 }

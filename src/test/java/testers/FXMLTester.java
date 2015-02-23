@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import com.computer_graphics.controller.gui.CanvasController;
 import com.computer_graphics.controller.gui.WrapController;
+import com.computer_graphics.logs.LogsImage;
 
 public class FXMLTester extends Application{
 
@@ -30,6 +31,8 @@ public class FXMLTester extends Application{
 			fxmlLoader.setLocation(location);
 			
 			fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+			
+			new LogsImage();
 			
 			StackPane root2 =  fxmlLoader.load(location.openStream());
 			

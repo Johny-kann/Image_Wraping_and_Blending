@@ -59,6 +59,14 @@ public class SmallLogics {
 		return (int)Math.round(x);
 	}
 	
+	/**
+	 * @param length
+	 * @param dist
+	 * @param offset
+	 * @param Total Power
+	 * @param length
+	 * @return
+	 */
 	public Double calculateWeight(Double length,Double dist,Double a,Double b,Double p)
 	{
 		return Math.pow((Math.pow(length, p)/(a+dist)),b);

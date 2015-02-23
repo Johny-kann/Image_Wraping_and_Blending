@@ -1,19 +1,10 @@
 package com.computer_graphics.controller.gui;
 
-import sun.security.acl.WorldGroupImpl;
-import antlr.FileLineFormatter;
-import ch.qos.logback.core.pattern.color.BlackCompositeConverter;
-
 import com.computer_graphics.constants.files.FileConstants;
 import com.computer_graphics.shapes.custom.ArrowHead;
 import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.threads.WrapControllerThread;
-import com.computer_graphics.transforms.logics.SmallLogics;
-import com.computer_graphics.transforms.logics.Transformations2D;
-import com.computer_graphics.transforms.logics.VectorTransformations;
 import com.computer_graphics.transforms.logics.Xform;
-import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
-
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,26 +12,15 @@ import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Dimension2D;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Sphere;
-import javafx.util.Math;
 
 public class WrapController {
 	

@@ -221,11 +221,12 @@ public class VectorTransformations {
 		
 			
 			Point2D displacement = Xsource.subtract(X);
-			Double shortDistance = findUVFromDestination(X, 
+			Double shortDistance = shortDistance(
+					
 					trans.getXYFromUV(uvDest, xyDest, linDest.getStartP()), 
-					trans.getXYFromUV(uvDest, xyDest, linDest.getEndP()
-							)
-					).getY();
+					trans.getXYFromUV(uvDest, xyDest, linDest.getEndP()),
+					X
+					);
 			Double length = linDest.getStartP().distance(linDest.getEndP());
 			Double weight = sl.calculateWeight(length, 
 					shortDistance,
@@ -242,6 +243,11 @@ public class VectorTransformations {
 		}
 	Point2D weightedX = X.add(dSum.multiply(1/weightSum));
 	return weightedX;
+	}
+	
+	public Double shortDistance(Point2D linStart,Point2D linEnd,Point2D X)
+	{
+		return Math.abs(findUVFromDestination(X, linStart, linEnd).getY());
 	}
 	
 	public Point2D getXfromSource(Point2D Xdest, Point2D Pdest, Point2D Qdest,Point2D Psource,Point2D Qsource,Dimension2D uvDest,Dimension2D xyDest
