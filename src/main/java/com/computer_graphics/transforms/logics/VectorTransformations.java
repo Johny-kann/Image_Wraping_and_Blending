@@ -1,5 +1,6 @@
 package com.computer_graphics.transforms.logics;
 
+import com.computer_graphics.constants.notations.PaperNotations;
 import com.computer_graphics.shapes.custom.ArrowHead;
 import com.computer_graphics.shapes.custom.ImageGroup;
 
@@ -26,18 +27,18 @@ public class VectorTransformations {
 		return new Point2D(u, v);
 	}
 	
-	public Point2D findXFromUV(Point2D P1,Point2D Q1,Point2D UV)
+	public Point2D findXFromUV(Point2D PSource,Point2D QSource,Point2D UV)
 	{
 		SmallLogics sl = new SmallLogics();
 		
 	//	System.out.println(P1);
 	//	System.out.println(Q1);
 		Point2D third =  
-		sl.findPerpendicular(Q1.subtract(P1)).multiply(UV.getY()/(Q1.subtract(P1).magnitude()));
+		sl.findPerpendicular(QSource.subtract(PSource)).multiply(UV.getY()/(QSource.subtract(PSource).magnitude()));
 		
-		Point2D two = Q1.subtract(P1).multiply(UV.getX());
+		Point2D two = QSource.subtract(PSource).multiply(UV.getX());
 		
-		Point2D one = P1;
+		Point2D one = PSource;
 		
 		return one.add(two).add(third);
 				
@@ -101,6 +102,53 @@ public class VectorTransformations {
 	{
 		SmallLogics sl = new SmallLogics();
 		
+		Point2D Xi = new Point2D(x, y);
+		
+		Point2D dSum = new Point2D(0, 0);
+		Double weightSum = 0.0;
+		
+		if(sl.isLineNumberSame(source, destination))
+		{
+			
+		
+		
+		for(int i=0;i<destination.getLineNumbers();i++)
+		{
+		/*	ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(i);
+			
+			ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(i);
+			
+			Point2D Xsource = getXfromSource(
+					new Point2D(x,y), 
+		
+					sl.giveAlphaPoint(linsource.getStartP(), lindest.getStartP(), alpha),
+						
+					sl.giveAlphaPoint(linsource.getEndP(), lindest.getEndP(), alpha), 
+					linsource.getStartP(), 
+					linsource.getEndP(), 
+					destination.getDimUV(), 
+					new Dimension2D(image.getWidth(), image.getHeight())
+					, source.getDimUV(), 
+					source.getDimReal());
+			
+			Point2D displacement = Xsource.subtract(Xi);
+			Double shortDistance = findUVFromDestination(Xsource, linsource.getStartP(), linsource.getEndP()).getY();
+			Double length = linsource.getStartP().distance(linsource.getEndP());
+			Double weight = sl.calculateWeight(length, 
+					shortDistance,
+					PaperNotations.P_BIEBER_A_CONSTANT, 
+					PaperNotations.P_BIEBER_B_CONSTANT,
+					PaperNotations.P_BIEBER_P_CONSTANT);
+			
+			weight = 1.0;
+			dSum = dSum.add(displacement.multiply(weight));
+			
+			weightSum+=weight;
+			*/
+		}
+	
+		Point2D weightedXsource = dSum.multiply(1/weightSum);
+		
 		ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(0);
 		
 		ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(0);
@@ -117,9 +165,73 @@ public class VectorTransformations {
 				new Dimension2D(image.getWidth(), image.getHeight())
 				, source.getDimUV(), 
 				source.getDimReal());
-		
+				
+				
 		return Xsource;
 		
+		}
+		else
+		{
+			System.out.println("Line numbers not equal");
+			return null;
+			
+		}
+		
+	}
+	
+	public Point2D getXAveragingAllLines(Point2D X,Point2D sourceP,Point2D sourceQ,
+			Point2D destP,Point2D destQ,
+			Dimension2D uvDest,Dimension2D xyDest,Dimension2D uvSource,Dimension2D xySource, int noOfLines,Double alpha)
+	{
+		SmallLogics sl = new SmallLogics();
+		Transformations2D trans = new Transformations2D();
+		
+		Point2D dSum = new Point2D(0, 0);
+		Double weightSum = 0.0;
+		
+	
+		
+		for(int i=0;i<noOfLines;i++)
+		{
+	//	ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(i);
+			
+	//	ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(i);
+			
+			Point2D Xsource = getXfromSource(
+					X, 
+		
+					sl.giveAlphaPoint(sourceP, destP, alpha),
+						
+					sl.giveAlphaPoint(sourceQ, destQ, alpha), 
+					sourceP, 
+					sourceQ, 
+					uvDest, 
+					xyDest
+					, uvSource, 
+					xySource);
+		
+			
+			Point2D displacement = Xsource.subtract(X);
+			Double shortDistance = findUVFromDestination(X, 
+					trans.getXYFromUV(uvDest, xyDest, destP), 
+					trans.getXYFromUV(uvDest, xyDest, destQ)
+					).getY();
+			Double length = destP.distance(destQ);
+			Double weight = sl.calculateWeight(length, 
+					shortDistance,
+					PaperNotations.P_BIEBER_A_CONSTANT, 
+					PaperNotations.P_BIEBER_B_CONSTANT,
+					PaperNotations.P_BIEBER_P_CONSTANT);
+			
+			
+			weight = 1.0;
+			dSum = dSum.add(displacement.multiply(weight));
+			
+			weightSum+=weight;
+			
+		}
+	Point2D weightedX = X.add(dSum.multiply(1/weightSum));
+	return weightedX;
 	}
 	
 	public Point2D getXfromSource(Point2D Xdest, Point2D Pdest, Point2D Qdest,Point2D Psource,Point2D Qsource,Dimension2D uvDest,Dimension2D xyDest
@@ -129,12 +241,15 @@ public class VectorTransformations {
 		Point2D uvPT = findUVFromDestination(Xdest, 
 									trans.getXYFromUV(uvDest, xyDest, Pdest), 
 									trans.getXYFromUV(uvDest, xyDest, Qdest));
-	//	System.out.println(uvPT);
-		return findXFromUV(
+		
+	
+	
+		Point2D temp =  findXFromUV(
 				trans.getXYFromUV(uvSource, xySource, Psource), 
 				trans.getXYFromUV(uvSource, xySource, Qsource), 
 				uvPT);
-		
+	
+		return temp;
 		
 	}
 }

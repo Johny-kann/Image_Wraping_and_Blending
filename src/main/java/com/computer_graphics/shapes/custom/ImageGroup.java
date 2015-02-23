@@ -65,6 +65,11 @@ public class ImageGroup extends Group{
 		index++;
 	}
 
+	public int getLineNumbers()
+	{
+		return lines.getChildren().size();
+	}
+	
 	public Dimension2D getDimUV() {
 		return new Dimension2D(imageView.getFitWidth(), imageView.getFitHeight());
 	}

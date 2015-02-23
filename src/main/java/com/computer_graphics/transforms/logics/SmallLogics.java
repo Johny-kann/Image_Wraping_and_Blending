@@ -1,5 +1,7 @@
 package com.computer_graphics.transforms.logics;
 
+import com.computer_graphics.shapes.custom.ImageGroup;
+
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,6 +57,16 @@ public class SmallLogics {
 	public static int doubleToInt(Double x)
 	{
 		return (int)Math.round(x);
+	}
+	
+	public Double calculateWeight(Double length,Double dist,Double a,Double b,Double p)
+	{
+		return Math.pow((Math.pow(length, p)/(a+dist)),b);
+	}
+	
+	public Boolean isLineNumberSame(ImageGroup source,ImageGroup dest)
+	{
+		return source.getLines().getChildren().size()==dest.getLines().getChildren().size();
 	}
 	
 }
