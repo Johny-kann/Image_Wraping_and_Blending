@@ -112,13 +112,13 @@ public class VectorTransformations {
 			
 		
 		
-		for(int i=0;i<destination.getLineNumbers();i++)
+	/*	for(int i=0;i<destination.getLineNumbers();i++)
 		{
-		/*	ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(i);
+			ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(i);
 			
 			ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(i);
 			
-			Point2D Xsource = getXfromSource(
+		/*	Point2D Xsource = getXfromSource(
 					new Point2D(x,y), 
 		
 					sl.giveAlphaPoint(linsource.getStartP(), lindest.getStartP(), alpha),
@@ -145,11 +145,20 @@ public class VectorTransformations {
 			
 			weightSum+=weight;
 			*/
-		}
-	
-		Point2D weightedXsource = dSum.multiply(1/weightSum);
+			Point2D Xsource = getXAveragingAllLines(Xi, source,
+					
+					destination,
+					
+					destination.getDimUV(),
+					new Dimension2D(image.getWidth(), image.getHeight()),
+					source.getDimUV(),
+					source.getDimReal(), 
+					source.getLineNumbers(), alpha);
 		
-		ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(0);
+	
+	//	Point2D weightedXsource = dSum.multiply(1/weightSum);
+		
+	/*	ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(0);
 		
 		ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(0);
 		
@@ -166,8 +175,8 @@ public class VectorTransformations {
 				, source.getDimUV(), 
 				source.getDimReal());
 				
-				
-		return Xsource;
+				*/
+		return Xsource; 
 		
 		}
 		else
@@ -179,8 +188,8 @@ public class VectorTransformations {
 		
 	}
 	
-	public Point2D getXAveragingAllLines(Point2D X,Point2D sourceP,Point2D sourceQ,
-			Point2D destP,Point2D destQ,
+	public Point2D getXAveragingAllLines(Point2D X,ImageGroup source,
+			ImageGroup destination,
 			Dimension2D uvDest,Dimension2D xyDest,Dimension2D uvSource,Dimension2D xySource, int noOfLines,Double alpha)
 	{
 		SmallLogics sl = new SmallLogics();
@@ -193,18 +202,18 @@ public class VectorTransformations {
 		
 		for(int i=0;i<noOfLines;i++)
 		{
-	//	ArrowHead lindest = (ArrowHead)destination.getLines().getChildren().get(i);
+		ArrowHead linDest = (ArrowHead)destination.getLines().getChildren().get(i);
 			
-	//	ArrowHead linsource = (ArrowHead)source.getLines().getChildren().get(i);
+		ArrowHead linSource = (ArrowHead)source.getLines().getChildren().get(i);
 			
 			Point2D Xsource = getXfromSource(
 					X, 
 		
-					sl.giveAlphaPoint(sourceP, destP, alpha),
+					sl.giveAlphaPoint(linSource.getStartP(), linDest.getStartP(), alpha),
 						
-					sl.giveAlphaPoint(sourceQ, destQ, alpha), 
-					sourceP, 
-					sourceQ, 
+					sl.giveAlphaPoint(linSource.getEndP(), linDest.getEndP(), alpha), 
+					linSource.getStartP(), 
+					linSource.getEndP(), 
 					uvDest, 
 					xyDest
 					, uvSource, 
@@ -213,10 +222,11 @@ public class VectorTransformations {
 			
 			Point2D displacement = Xsource.subtract(X);
 			Double shortDistance = findUVFromDestination(X, 
-					trans.getXYFromUV(uvDest, xyDest, destP), 
-					trans.getXYFromUV(uvDest, xyDest, destQ)
+					trans.getXYFromUV(uvDest, xyDest, linDest.getStartP()), 
+					trans.getXYFromUV(uvDest, xyDest, linDest.getEndP()
+							)
 					).getY();
-			Double length = destP.distance(destQ);
+			Double length = linDest.getStartP().distance(linDest.getEndP());
 			Double weight = sl.calculateWeight(length, 
 					shortDistance,
 					PaperNotations.P_BIEBER_A_CONSTANT, 
@@ -224,7 +234,7 @@ public class VectorTransformations {
 					PaperNotations.P_BIEBER_P_CONSTANT);
 			
 			
-			weight = 1.0;
+		//	weight = 1.0;
 			dSum = dSum.add(displacement.multiply(weight));
 			
 			weightSum+=weight;

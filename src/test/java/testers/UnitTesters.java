@@ -33,8 +33,8 @@ public class UnitTesters {
 		Dimension2D xySource = new Dimension2D(20, 20);
 		int noOfLines = 1;
 		Double alpha = 1.0;
-		Point2D vect = vec.getXAveragingAllLines(X, sourceP, sourceQ, destP, destQ, uvDest, xyDest, uvSource, xySource, noOfLines, alpha);
-		System.out.println(vect);
+	//	Point2D vect = vec.getXAveragingAllLines(X, sourceP, sourceQ, destP, destQ, uvDest, xyDest, uvSource, xySource, noOfLines, alpha);
+//		System.out.println(vect);
 		
 	//	System.out.println(vec.findXFromUV(new Point2D(1, 0), new Point2D(1, 5), new Point2D(1, 1)));
 	}
