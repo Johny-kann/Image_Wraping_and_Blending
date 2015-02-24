@@ -5,6 +5,7 @@ import com.computer_graphics.shapes.custom.ArrowHead;
 import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.threads.WrapControllerThread;
 import com.computer_graphics.transforms.logics.Xform;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 public class WrapController {
 	
@@ -82,16 +84,26 @@ public class WrapController {
     void pressMe(ActionEvent event) {
 
     	
-    //	 new VectorTransformations().applyTransform(sourceImageGroup, destImageGroup);
-    	
-    //	WrapControllerThread model = new WrapControllerThread();
+    
         convertThread.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0, myClass);
         
         ((Service)convertThread.worker).restart();
     			
     }
 	
-	
+    @FXML
+    void resetImages(ActionEvent event) {
+
+    	sourceImageGroup.clearLines();
+    	
+    	destImageGroup.clearLines();
+    	
+    	Image image2 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
+   	 	destImageGroup.setImage(image2);
+   	 
+    	
+    	
+    }
 	
 	@FXML
     void initialize() {
@@ -114,15 +126,28 @@ public class WrapController {
 	 transImageGroup = new ImageGroup(imageTrans);
 	 
 	
+	settingChildrenFromImageGroupToRoot(sourceImageGroup, sourceAnchor);
+	settingChildrenFromImageGroupToRoot(destImageGroup, destAnchor);
+	settingChildrenFromImageGroupToRoot(transImageGroup, transAnchor);
 	
-	sourceAnchor.getChildren().add(sourceImageGroup.getLines());
-	destAnchor.getChildren().add(destImageGroup.getLines());
-	transAnchor.getChildren().add(transImageGroup.getLines());
+	 
+//	sourceAnchor.getChildren().add(sourceImageGroup.getLines());
+//	sourceAnchor.getChildren().add(sourceImageGroup.getTexts());
+//	destAnchor.getChildren().add(destImageGroup.getLines());
+//	destAnchor.getChildren().add(e)
+//	transAnchor.getChildren().add(transImageGroup.getLines());
 	
 	handleMouse(sourceImageGroup);
 	handleMouse(destImageGroup);
 	iniListeners();
     }
+	
+	
+	private void settingChildrenFromImageGroupToRoot(ImageGroup img,Node root)
+	{
+		((AnchorPane)root).getChildren().add(img.getLines());
+		((AnchorPane)root).getChildren().add(img.getTexts());
+	}
 	
 	public void setImageDimension(ImageGroup group,Image image,Double alpha)
 	{
@@ -171,7 +196,7 @@ public class WrapController {
 	
 	private void handleMouse(final ImageGroup parentNode) {
       
-		parentNode.getImageView().setOnMousePressed(new EventHandler<MouseEvent>() {
+			parentNode.getImageView().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent me) {
          //       mousePosX = me.getX();
          //       mousePosY = me.getY();
@@ -201,23 +226,25 @@ public class WrapController {
                 }     
                 if (me.isPrimaryButtonDown()) {
  
-                	drawLine(parentNode.getIndex()	, parentNode.getLines());
+                	drawLine(parentNode.getIndex()	, parentNode.getLines(),parentNode.getTexts());
                 }
             
             }
         });
     }
 	
-	private void drawLine(int index,Node lines)
+	private void drawLine(int index,Node lines,Node texts)
 	{
 		ArrowHead line = new ArrowHead(mouseOldX, mouseOldY, mousePosX, mousePosY);
-	
+		Text text = new Text(mouseOldX, mouseOldY, index+"");
 //		line.setPoints(mouseOldX, mouseOldY, mousePosX, mousePosY);
 
 		try
 		{
 		//	Line lines = (Line)lineGroup.getChildren().get(lineIndex);
 			((Group) lines).getChildren().set(index, line);
+			((Group)texts).getChildren().set(index, text);
+		//	System.out.println(((Group)texts).getChildren().size());
 		
 			
 		}catch(IndexOutOfBoundsException ne)
@@ -225,6 +252,10 @@ public class WrapController {
 			
 			((Group) lines).
 			getChildren().add(line);
+			
+			((Group)texts).getChildren().add(text);
+		//	System.out.println(((Group)texts).getChildren().size());
+		
 		}
 
 	}

@@ -9,8 +9,9 @@ public class ImageGroup extends Group{
 
 	private int index;
 	private ImageView imageView;
-//	private Image image;
+	private Image image;
 	private Group lines;
+	private Group texts;
 	
 	
 	public ImageGroup(ImageView imageV)
@@ -20,7 +21,7 @@ public class ImageGroup extends Group{
 		this.imageView = imageV;
 		this.lines = new Group();
 		this.imageView.setPreserveRatio(false);
-		
+		this.texts = new Group();
 		
 		
 	}
@@ -45,6 +46,10 @@ public class ImageGroup extends Group{
 		return lines;
 	}
 
+	public Group getTexts() {
+		return texts;
+	}
+	
 	public void setLines(Group lines) {
 		this.lines = lines;
 	}
@@ -64,6 +69,7 @@ public class ImageGroup extends Group{
 	{
 		index++;
 	}
+	
 
 	public int getLineNumbers()
 	{
@@ -79,10 +85,17 @@ public class ImageGroup extends Group{
 		return new Dimension2D(imageView.getImage().getWidth(), imageView.getImage().getHeight());
 	}
 
-	
+	public void clearLines()
+	{
+		lines.getChildren().clear();
+		texts.getChildren().clear();
+		this.setIndex(-1);
+	}
 /*	public void calculateDimensionForImage() {
 		// TODO Auto-generated method stub
 	
 	}*/
+
+	
 	
 }

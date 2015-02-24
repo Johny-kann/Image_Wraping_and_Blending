@@ -27,6 +27,7 @@
                      <children>
                         <Button fx:id="changeBut" layoutX="75.0" layoutY="80.0" mnemonicParsing="false" onAction="#pressMe" text="Draw" />
                         <Slider fx:id="transSlider" blockIncrement="0.1" layoutX="14.0" layoutY="122.0" majorTickUnit="0.1" max="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="247.0" showTickLabels="true" showTickMarks="true" />
+                        <Button layoutX="153.0" layoutY="80.0" mnemonicParsing="false" onAction="#resetImages" text="Reset" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="destAnchor" layoutX="624.0" layoutY="26.0" prefHeight="291.0" prefWidth="431.0">

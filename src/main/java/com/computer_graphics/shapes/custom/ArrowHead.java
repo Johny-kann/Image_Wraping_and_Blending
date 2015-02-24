@@ -3,7 +3,10 @@ package com.computer_graphics.shapes.custom;
 import com.computer_graphics.transforms.logics.SmallLogics;
 import com.sun.javafx.geom.Line2D;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
@@ -25,8 +28,30 @@ public class ArrowHead extends Polyline {
 				startX , startY,
 				endX , endY,
 				pt.getX() , pt.getY()});
+		setStrokeWidth(2);
+		initHandler();
 	}
 
+	private void initHandler()
+	{
+		this.setOnMouseMoved(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				setStroke(Color.CYAN);
+			}
+		});
+		
+		this.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				setStroke(Color.BLACK);
+			}
+		});
+	}
 	
 	public void setPoints(Double startX,Double startY,Double endX,Double endY)
 	{
