@@ -103,6 +103,7 @@ public class WrapControllerThread {
 						public void run() {
 							// TODO Auto-generated method stub
 						blend.setImageDimension(trans, image, alpha);
+	//					System.out.println("Image Set");
 						}
 					});
 						
