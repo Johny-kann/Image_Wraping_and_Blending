@@ -28,6 +28,7 @@ public class BlendController {
 	private ImageGroup sourceImageGroup ;
 	private ImageGroup destImageGroup ;
 	private ImageGroup transImageGroup;
+	private ImageGroup transImageGroup2;
 	
 	 private double mousePosX;
 	    private double mousePosY;
@@ -36,7 +37,8 @@ public class BlendController {
 	    private double mouseDeltaX;
 	    private double mouseDeltaY;
 	    
-	    private WrapControllerThread convertThread;
+	    private WrapControllerThread convertThreadSource;
+	    private WrapControllerThread convertThreadDestination;
 		 
 		 public Double newTrans=1.0;
 	
@@ -64,14 +66,20 @@ public class BlendController {
 
 	    @FXML
 	    private Slider transSlider;
+	    
+	    @FXML
+	    private AnchorPane transAnchor1;
+	    
+	    @FXML
+	    private ImageView imageTrans1;
 
 	    @FXML
 	    void pressMe(ActionEvent event) {
 
 	    	   
-	        convertThread.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0, myClass);
+	        convertThreadSource.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0, myClass);
 	        
-	        ((Service)convertThread.worker).restart();
+	        ((Service)convertThreadSource.worker).restart();
 
 	    }
 
@@ -98,26 +106,35 @@ public class BlendController {
 	    void initialize() {
 			
 		myClass = this;
-		convertThread = new WrapControllerThread();
+		convertThreadSource = new WrapControllerThread();
+		convertThreadDestination = new WrapControllerThread();
+		
+		
+		
 		 Image image = new Image(FileConstants.BLEND_SOURCE_IMAGE, true);     
 		 imageSource.setImage(image);
 		 sourceImageGroup = new ImageGroup(imageSource);
-//		 setImageDimension(sourceImageGroup);
+
 		 
 		 	 
 		 Image image2 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
 		 imageDest.setImage(image2);
 		 destImageGroup = new ImageGroup(imageDest);
-//		 setImageDimension(destImageGroup);
+
 		 
-		 Image image3 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
+		 Image image3 = new Image(FileConstants.BLEND_SOURCE_IMAGE, true);
 		 imageTrans.setImage(image3);
 		 transImageGroup = new ImageGroup(imageTrans);
+		 
+		 Image image4 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
+		 imageTrans1.setImage(image4);
+		 transImageGroup2 = new ImageGroup(imageTrans1);
 		 
 		
 		settingChildrenFromImageGroupToRoot(sourceImageGroup, sourceAnchor);
 		settingChildrenFromImageGroupToRoot(destImageGroup, destAnchor);
 		settingChildrenFromImageGroupToRoot(transImageGroup, transAnchor);
+		settingChildrenFromImageGroupToRoot(transImageGroup2, transAnchor1);
 		
 		handleMouse(sourceImageGroup);
 		handleMouse(destImageGroup);
@@ -132,7 +149,7 @@ public class BlendController {
 	    
 	 public void setImageDimension(ImageGroup group,Image image,Double alpha)
 	 {
-	    	if(alpha.equals(newTrans))
+	    	if(alpha.equals(newTrans) || alpha.equals(1-newTrans))
 			{
 				group.getImageView().setImage(image);
 			}
@@ -186,20 +203,34 @@ public class BlendController {
 						
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
-				//			WrapControllerThread model = new WrapControllerThread();
-							if(convertThread.worker.isRunning())
+							
+						/*	if(convertThreadSource.worker.isRunning())
 							{
-						//		System.out.println("True");
-								convertThread.worker.cancel();
+				
+								convertThreadSource.worker.cancel();
 							}
 							
 							newTrans = new_val.doubleValue();
-					        convertThread.
+					        convertThreadSource.
 					        convertImageViews(sourceImageGroup, destImageGroup, transImageGroup,new_val.doubleValue(), myClass);
-					        
-					        ((Service)convertThread.worker).restart();
-						
+					        ((Service)convertThreadSource.worker).restart();
+							
+				
+							
+					        if(convertThreadDestination.worker.isRunning())
+							{
+				
+								convertThreadDestination.worker.cancel();
+							}
+							
+							newTrans = 1 - new_val.doubleValue();
+					        convertThreadDestination.
+					        convertImageViews( destImageGroup,sourceImageGroup, transImageGroup2,newTrans, myClass);
+					        ((Service)convertThreadDestination.worker).restart();
+				*/
+							newTrans = new_val.doubleValue();
+							runThread(convertThreadSource, sourceImageGroup, destImageGroup, transImageGroup, new_val.doubleValue());
+							runThread(convertThreadDestination, destImageGroup, sourceImageGroup, transImageGroup2, 1-new_val.doubleValue());
 						}
 					});
 	            	
@@ -208,6 +239,29 @@ public class BlendController {
 			});
 			
 		}
+	    
+	   
+	   private void runThread(WrapControllerThread thread,ImageGroup sGroup,ImageGroup dGroup,ImageGroup tGroup,Double alpha)
+	   {
+	//	   System.out.println("Inside run");
+		   try
+		   {
+		   if(thread.worker.isRunning())
+			{
+
+				thread.worker.cancel();
+			}
+			
+	//		newTrans = new_val.doubleValue();
+	        thread.
+	        convertImageViews(sGroup, dGroup, tGroup,alpha, myClass);
+	        ((Service)thread.worker).restart();
+		   }catch(NullPointerException ne)
+		   {
+			   thread.
+		        convertImageViews(sGroup, dGroup, tGroup,alpha, myClass);
+		   }
+	   }
 	    
 	private void drawLine(int index,Node lines,Node texts)
 	{
