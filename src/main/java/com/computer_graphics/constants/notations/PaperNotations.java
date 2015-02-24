@@ -13,7 +13,7 @@ public class PaperNotations {
 	/**
 	 * total power raised in the end, typical range 0.5~2
 	 */
-	public static Double P_BIEBER_B_CONSTANT = 1.0;
+	public static Double P_BIEBER_B_CONSTANT = 1.5;
 	
 	/**
 	 * Power raised by the length typical value 0~1
