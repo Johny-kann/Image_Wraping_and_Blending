@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computer_graphics.controller.gui.BlendController">
+   <children>
+      <ScrollPane prefViewportHeight="700.0" prefViewportWidth="1200.0">
+         <content>
+            <AnchorPane prefHeight="630.0" prefWidth="1114.0">
+               <children>
+                  <AnchorPane fx:id="sourceAnchor" layoutX="36.0" layoutY="26.0" prefHeight="291.0" prefWidth="431.0">
+                     <children>
+                        <ImageView fx:id="imageSource" fitHeight="291.0" fitWidth="431.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="799.0" layoutY="370.0" prefHeight="192.0" prefWidth="274.0">
+                     <children>
+                        <Button fx:id="changeBut" layoutX="75.0" layoutY="80.0" mnemonicParsing="false" onAction="#pressMe" text="Draw" />
+                        <Slider fx:id="transSlider" blockIncrement="0.1" layoutX="14.0" layoutY="122.0" majorTickUnit="0.1" max="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="247.0" showTickLabels="true" showTickMarks="true" />
+                        <Button layoutX="153.0" layoutY="80.0" mnemonicParsing="false" onAction="#resetImages" text="Reset" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="destAnchor" layoutX="624.0" layoutY="26.0" prefHeight="291.0" prefWidth="431.0">
+                     <children>
+                        <ImageView fx:id="imageDest" fitHeight="291.0" fitWidth="431.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="transAnchor" layoutX="252.0" layoutY="333.0" prefHeight="291.0" prefWidth="431.0">
+                     <children>
+                        <ImageView fx:id="imageTrans" fitHeight="291.0" fitWidth="431.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</StackPane>

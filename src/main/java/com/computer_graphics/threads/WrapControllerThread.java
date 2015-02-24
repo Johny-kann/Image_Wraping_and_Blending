@@ -2,6 +2,7 @@ package com.computer_graphics.threads;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.computer_graphics.controller.gui.BlendController;
 import com.computer_graphics.controller.gui.WrapController;
 import com.computer_graphics.shapes.custom.ImageGroup;
 import com.computer_graphics.transforms.logics.SmallLogics;
@@ -69,14 +70,11 @@ public class WrapControllerThread {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-				
-							wrap.setImageDimension(trans, image, alpha);
-							
+						wrap.setImageDimension(trans, image, alpha);
 						}
 					});
 						
-						
-						return "Transformed";
+					return "Transformed";
 					}
 					
 				};
@@ -84,4 +82,35 @@ public class WrapControllerThread {
 		};
    	}
 	
+   	
+   	public void convertImageViews(final ImageGroup source,final ImageGroup dest,final ImageGroup trans,final Double alpha,final BlendController blend)
+   	{
+   		worker = new Service<String>() {
+
+			@Override
+			protected Task<String> createTask() {
+				// TODO Auto-generated method stub
+				return new Task<String>() {
+
+					@Override
+					protected String call() throws Exception {
+						// TODO Auto-generated method stub
+					final Image image = new VectorTransformations().applyTransform(source, dest, trans,alpha);
+				
+						Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+						blend.setImageDimension(trans, image, alpha);
+						}
+					});
+						
+					return "Transformed";
+					}
+			
+				};
+			}
+		};
+   	}
 }

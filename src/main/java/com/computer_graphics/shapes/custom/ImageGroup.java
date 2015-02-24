@@ -9,7 +9,7 @@ public class ImageGroup extends Group{
 
 	private int index;
 	private ImageView imageView;
-	private Image image;
+//	private Image image;
 	private Group lines;
 	private Group texts;
 	

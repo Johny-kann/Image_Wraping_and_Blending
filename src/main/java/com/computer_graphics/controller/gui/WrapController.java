@@ -29,25 +29,25 @@ public class WrapController {
 //	final Group sourceGroup = new Group();
 ///	final Group destGroup = new Group();
 	
-	WrapController myClass;
-	ImageGroup sourceImageGroup ;
-	ImageGroup destImageGroup ;
-	ImageGroup transImageGroup;
+	private WrapController myClass;
+	private ImageGroup sourceImageGroup ;
+	private ImageGroup destImageGroup ;
+	private ImageGroup transImageGroup;
 	
-	final PerspectiveCamera camera = new PerspectiveCamera(true);
+/*	final PerspectiveCamera camera = new PerspectiveCamera(true);
     final Xform cameraXform = new Xform();
     final Xform cameraXform2 = new Xform();
     final Xform cameraXform3 = new Xform();
     final double cameraDistance = 30;
     
-
+*/
     
-    double mousePosX;
-    double mousePosY;
-    double mouseOldX;
-    double mouseOldY;
-    double mouseDeltaX;
-    double mouseDeltaY;
+    private double mousePosX;
+    private double mousePosY;
+    private double mouseOldX;
+    private double mouseOldY;
+    private double mouseDeltaX;
+    private double mouseDeltaY;
     
  //   int lineIndex = -1;
 	
@@ -82,9 +82,7 @@ public class WrapController {
 	 
     @FXML
     void pressMe(ActionEvent event) {
-
-    	
-    
+   
         convertThread.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0, myClass);
         
         ((Service)convertThread.worker).restart();
@@ -98,9 +96,15 @@ public class WrapController {
     	
     	destImageGroup.clearLines();
     	
-    	Image image2 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
+    	Image image2 = new Image(FileConstants.WRAP_DESTINATION_IMAGE_TEMPLATE, true);
    	 	destImageGroup.setImage(image2);
-   	 
+   	 	
+   	 	
+   	 Image image3 = new Image(FileConstants.WRAP_DESTINATION_IMAGE_TEMPLATE, true);
+   	transImageGroup.setImage(image3);
+   	
+   	
+ //  	 transSlider.valueProperty().set(0.0);
     	
     	
     }
@@ -110,18 +114,18 @@ public class WrapController {
 		
 		myClass = this;
 	convertThread = new WrapControllerThread();
-	 Image image = new Image(FileConstants.SOURCE_IMAGE, true);     
+	 Image image = new Image(FileConstants.WRAP_SOURCE_IMAGE, true);     
 	 imageSource.setImage(image);
 	 sourceImageGroup = new ImageGroup(imageSource);
 //	 setImageDimension(sourceImageGroup);
 	 
 	 	 
-	 Image image2 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
+	 Image image2 = new Image(FileConstants.WRAP_DESTINATION_IMAGE_TEMPLATE, true);
 	 imageDest.setImage(image2);
 	 destImageGroup = new ImageGroup(imageDest);
 //	 setImageDimension(destImageGroup);
 	 
-	 Image image3 = new Image(FileConstants.DESTINATION_IMAGE_TEMPLATE, true);
+	 Image image3 = new Image(FileConstants.WRAP_DESTINATION_IMAGE_TEMPLATE, true);
 	 imageTrans.setImage(image3);
 	 transImageGroup = new ImageGroup(imageTrans);
 	 

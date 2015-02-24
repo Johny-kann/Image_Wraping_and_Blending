@@ -17,7 +17,7 @@ public class LogsImage {
 			try {
 				SimpleFormatter formatter = new SimpleFormatter();
 				
-				mainLogs.addHandler(new FileHandler(FileConstants.DESTINATION_IMAGE_TEMPLATE));
+				mainLogs.addHandler(new FileHandler(FileConstants.WRAP_DESTINATION_IMAGE_TEMPLATE));
 				
 		//		  FileHandler fh = new FileHandler(FilesList.LOG_ACCURACY);
 				
