@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<StackPane prefHeight="418.0" prefWidth="692.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.computer_graphics.controller.gui.WrapperController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <AnchorPane prefHeight="42.0" prefWidth="692.0">
+               <children>
+                  <Button fx:id="butBlend" layoutX="620.0" layoutY="9.0" mnemonicParsing="false" onAction="#blendAction" text="Blend" AnchorPane.rightAnchor="20.0" />
+                  <Button fx:id="butWrap" layoutX="552.0" layoutY="9.0" mnemonicParsing="false" onAction="#wrapAction" text="Wrap" AnchorPane.rightAnchor="80.0" />
+               </children>
+            </AnchorPane>
+            <StackPane fx:id="contentPane" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>
