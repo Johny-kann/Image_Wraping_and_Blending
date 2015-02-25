@@ -69,30 +69,50 @@ public class VectorTransformations {
 				}
 				catch(IndexOutOfBoundsException ie)
 				{
-					image.getPixelWriter().setColor(i, j,						
+					image.getPixelWriter().setColor(i, j, 						
 									Color.WHITE);
 				}
 			}
 		}
-		
-		
-	/*	Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-				trans.getImageView().setImage(image);
-				System.out.println(alpha);
-				
-			}
-		});*/
-		
-	
 		return image;
-			
 	}
-	
+
+		public Image applyTransformAplha(ImageGroup source,final ImageGroup dest,final ImageGroup trans,final Double alpha)
+		{
+		SmallLogics sl = new SmallLogics();
+			
+			final WritableImage image = new WritableImage(
+					SmallLogics.doubleToInt(source.getDimReal().getWidth()), 
+					SmallLogics.doubleToInt(source.getDimReal().getHeight())
+					);
+			
+			for(int i=0;i<image.getWidth();i++)
+			{
+				for(int j=0;j<image.getHeight();j++)
+				{
+					try
+					{
+						Point2D Xsource = getXAveragingAllLines(source, dest, trans, alpha, i, j, image);
+						
+						image.getPixelWriter().setColor(i, j, sl.addOpacityToColor(
+							source.getImage().getPixelReader().getColor(
+									SmallLogics.doubleToInt(Xsource.getX()), 
+									SmallLogics.doubleToInt(Xsource.getY())
+									),1-alpha));
+						
+					}
+					catch(IndexOutOfBoundsException ie)
+					{
+						
+						image.getPixelWriter().setColor(i, j, sl.addOpacityToColor(						
+										Color.WHITE,1-alpha));
+					}
+				}
+			}
+
+		return image;
+
+	}
 	
 	/**
 	 * Computes X by finding the weighted average of all the lines employed by the paper

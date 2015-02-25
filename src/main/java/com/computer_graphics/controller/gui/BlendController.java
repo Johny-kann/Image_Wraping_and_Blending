@@ -260,6 +260,7 @@ public class BlendController {
 		   {
 			   thread.
 		        convertImageViews(sGroup, dGroup, tGroup,alpha, myClass);
+			   ((Service)thread.worker).restart();
 		   }
 	   }
 	    

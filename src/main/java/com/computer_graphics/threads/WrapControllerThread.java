@@ -95,7 +95,7 @@ public class WrapControllerThread {
 					@Override
 					protected String call() throws Exception {
 						// TODO Auto-generated method stub
-					final Image image = new VectorTransformations().applyTransform(source, dest, trans,alpha);
+					final Image image = new VectorTransformations().applyTransformAplha(source, dest, trans,alpha);
 				
 						Platform.runLater(new Runnable() {
 						

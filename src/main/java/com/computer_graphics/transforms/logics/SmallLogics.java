@@ -5,6 +5,7 @@ import com.computer_graphics.shapes.custom.ImageGroup;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import Jama.Matrix;
 
 public class SmallLogics {
@@ -37,6 +38,12 @@ public class SmallLogics {
 		Matrix mat = new Matrix(new double[][]{px,py,p1});
 		
 		return mat;
+	}
+	
+	public Color addOpacityToColor(Color color,double alpha)
+	{
+		color = Color.color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+		return color;
 	}
 	
 	public Point2D findPerpendicular(Point2D point)

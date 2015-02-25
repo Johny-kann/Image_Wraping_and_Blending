@@ -38,7 +38,8 @@ public class FXMLTester extends Application{
 			
 			StackPane root2 =  fxmlLoader.load(location.openStream());
 			
-	//		WrapController 
+	
+//			WrapController 
 			BlendController 
 			test = fxmlLoader.getController();
 		
