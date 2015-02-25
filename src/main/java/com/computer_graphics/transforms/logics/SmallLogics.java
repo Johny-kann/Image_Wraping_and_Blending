@@ -5,6 +5,7 @@ import com.computer_graphics.shapes.custom.ImageGroup;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import Jama.Matrix;
 
@@ -40,9 +41,26 @@ public class SmallLogics {
 		return mat;
 	}
 	
-	public Color addOpacityToColor(Color color,double alpha)
+	public Color mergeColor(Color color1,Color color2,double alpha)
 	{
-		color = Color.color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+	//	color1 = Color.color(color1.getRed(), color1.getGreen(), color1.getBlue(), alpha);
+	//	color2 = Color.color(color2.getRed(), color2.getGreen(), color2.getBlue(), alpha);
+		return color1.interpolate(color2, alpha);
+	}
+	
+	public Color setColor(PixelReader pixel,Point2D point)
+	{
+		Color color = null;
+	try
+		{
+		color = pixel.getColor(
+				doubleToInt(point.getX()),
+				doubleToInt(point.getY())
+				);
+		}catch(IndexOutOfBoundsException ie)
+		{
+			color = Color.WHITE;
+		}
 		return color;
 	}
 	

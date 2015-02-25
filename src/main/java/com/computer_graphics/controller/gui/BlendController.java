@@ -30,6 +30,8 @@ public class BlendController {
 	private ImageGroup transImageGroup;
 	private ImageGroup transImageGroup2;
 	
+	private ImageGroup resultGroup;
+	
 	 private double mousePosX;
 	    private double mousePosY;
 	    private double mouseOldX;
@@ -95,7 +97,7 @@ public class BlendController {
 	   	 imageDest.setImage(image2);
 	   	 	
 	   	 Image image3 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
-	    	transImageGroup.setImage(image3);
+	    	resultGroup.setImage(image3);
 	    	imageTrans.setImage(image3);
 	    	
 	   	 
@@ -122,19 +124,23 @@ public class BlendController {
 		 destImageGroup = new ImageGroup(imageDest);
 
 		 
+//		 Image image3 = new Image(FileConstants.BLEND_SOURCE_IMAGE, true);
+//		 imageTrans.setImage(image3);
+//		 transImageGroup = new ImageGroup(imageTrans);
+		 
+//		 Image image4 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
+//		 imageTrans1.setImage(image4);
+//		 transImageGroup2 = new ImageGroup(imageTrans1);
+		 
 		 Image image3 = new Image(FileConstants.BLEND_SOURCE_IMAGE, true);
 		 imageTrans.setImage(image3);
-		 transImageGroup = new ImageGroup(imageTrans);
-		 
-		 Image image4 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
-		 imageTrans1.setImage(image4);
-		 transImageGroup2 = new ImageGroup(imageTrans1);
-		 
+		 resultGroup = new ImageGroup(imageTrans);
 		
 		settingChildrenFromImageGroupToRoot(sourceImageGroup, sourceAnchor);
 		settingChildrenFromImageGroupToRoot(destImageGroup, destAnchor);
-		settingChildrenFromImageGroupToRoot(transImageGroup, transAnchor);
-		settingChildrenFromImageGroupToRoot(transImageGroup2, transAnchor1);
+		settingChildrenFromImageGroupToRoot(resultGroup, transAnchor);
+//		settingChildrenFromImageGroupToRoot(transImageGroup, transAnchor);
+//		settingChildrenFromImageGroupToRoot(transImageGroup2, transAnchor1);
 		
 		handleMouse(sourceImageGroup);
 		handleMouse(destImageGroup);
@@ -151,7 +157,9 @@ public class BlendController {
 	 {
 	    	if(alpha.equals(newTrans) || alpha.equals(1-newTrans))
 			{
-				group.getImageView().setImage(image);
+				group.
+				getImageView().
+				setImage(image);
 			}
 	 }
 	    
@@ -229,8 +237,8 @@ public class BlendController {
 					        ((Service)convertThreadDestination.worker).restart();
 				*/
 							newTrans = new_val.doubleValue();
-							runThread(convertThreadSource, sourceImageGroup, destImageGroup, transImageGroup, new_val.doubleValue());
-							runThread(convertThreadDestination, destImageGroup, sourceImageGroup, transImageGroup2, 1-new_val.doubleValue());
+							runThread(convertThreadSource, sourceImageGroup, destImageGroup, resultGroup, new_val.doubleValue());
+//							runThread(convertThreadDestination, destImageGroup, sourceImageGroup, transImageGroup2, 1-new_val.doubleValue());
 						}
 					});
 	            	

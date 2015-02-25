@@ -94,22 +94,34 @@ public class VectorTransformations {
 					{
 						Point2D Xsource = getXAveragingAllLines(source, dest, trans, alpha, i, j, image);
 						
-						image.getPixelWriter().setColor(i, j, sl.addOpacityToColor(
+						Point2D XDest = getXAveragingAllLines(dest, source, trans, 1-alpha, i, j, image);
+						
+			/*			image.getPixelWriter().setColor(i, j, sl.mergeColor(
 							source.getImage().getPixelReader().getColor(
 									SmallLogics.doubleToInt(Xsource.getX()), 
 									SmallLogics.doubleToInt(Xsource.getY())
-									),1-alpha));
+									),
+							dest.getImage().getPixelReader().getColor(SmallLogics.doubleToInt(XDest.getX()), SmallLogics.doubleToInt(XDest.getY()))
+									,1-alpha));
+									*/
+						
+						image.getPixelWriter().setColor(i, j, 
+								sl.mergeColor(
+										sl.setColor(source.getImage().getPixelReader(), Xsource), 
+										sl.setColor(dest.getImage().getPixelReader(), XDest), 
+										alpha));
 						
 					}
 					catch(IndexOutOfBoundsException ie)
 					{
 						
-						image.getPixelWriter().setColor(i, j, sl.addOpacityToColor(						
-										Color.WHITE,1-alpha));
+						image.getPixelWriter().setColor(i, j, 						
+										Color.WHITE);
 					}
 				}
 			}
 
+		
 		return image;
 
 	}
