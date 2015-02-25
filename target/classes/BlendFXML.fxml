@@ -48,15 +48,6 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="transAnchor1" layoutX="14.0" layoutY="321.0" prefHeight="291.0" prefWidth="431.0">
-                     <children>
-                        <ImageView fx:id="imageTrans1" fitHeight="291.0" fitWidth="431.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
                </children>
             </AnchorPane>
          </content>

@@ -69,11 +69,11 @@ public class BlendController {
 	    @FXML
 	    private Slider transSlider;
 	    
-	    @FXML
-	    private AnchorPane transAnchor1;
+/*	    @FXML
+	    private AnchorPane transAnchor1;*/
 	    
-	    @FXML
-	    private ImageView imageTrans1;
+/*	    @FXML
+	    private ImageView imageTrans1;*/
 
 	    @FXML
 	    void pressMe(ActionEvent event) {
@@ -116,21 +116,10 @@ public class BlendController {
 		 Image image = new Image(FileConstants.BLEND_SOURCE_IMAGE, true);     
 		 imageSource.setImage(image);
 		 sourceImageGroup = new ImageGroup(imageSource);
-
-		 
 		 	 
 		 Image image2 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
 		 imageDest.setImage(image2);
 		 destImageGroup = new ImageGroup(imageDest);
-
-		 
-//		 Image image3 = new Image(FileConstants.BLEND_SOURCE_IMAGE, true);
-//		 imageTrans.setImage(image3);
-//		 transImageGroup = new ImageGroup(imageTrans);
-		 
-//		 Image image4 = new Image(FileConstants.BLEND_DESTINATION_IMAGE, true);
-//		 imageTrans1.setImage(image4);
-//		 transImageGroup2 = new ImageGroup(imageTrans1);
 		 
 		 Image image3 = new Image(FileConstants.BLEND_SOURCE_IMAGE, true);
 		 imageTrans.setImage(image3);
@@ -139,8 +128,7 @@ public class BlendController {
 		settingChildrenFromImageGroupToRoot(sourceImageGroup, sourceAnchor);
 		settingChildrenFromImageGroupToRoot(destImageGroup, destAnchor);
 		settingChildrenFromImageGroupToRoot(resultGroup, transAnchor);
-//		settingChildrenFromImageGroupToRoot(transImageGroup, transAnchor);
-//		settingChildrenFromImageGroupToRoot(transImageGroup2, transAnchor1);
+
 		
 		handleMouse(sourceImageGroup);
 		handleMouse(destImageGroup);
@@ -212,33 +200,10 @@ public class BlendController {
 						@Override
 						public void run() {
 							
-						/*	if(convertThreadSource.worker.isRunning())
-							{
-				
-								convertThreadSource.worker.cancel();
-							}
-							
-							newTrans = new_val.doubleValue();
-					        convertThreadSource.
-					        convertImageViews(sourceImageGroup, destImageGroup, transImageGroup,new_val.doubleValue(), myClass);
-					        ((Service)convertThreadSource.worker).restart();
-							
-				
-							
-					        if(convertThreadDestination.worker.isRunning())
-							{
-				
-								convertThreadDestination.worker.cancel();
-							}
-							
-							newTrans = 1 - new_val.doubleValue();
-					        convertThreadDestination.
-					        convertImageViews( destImageGroup,sourceImageGroup, transImageGroup2,newTrans, myClass);
-					        ((Service)convertThreadDestination.worker).restart();
-				*/
+						
 							newTrans = new_val.doubleValue();
 							runThread(convertThreadSource, sourceImageGroup, destImageGroup, resultGroup, new_val.doubleValue());
-//							runThread(convertThreadDestination, destImageGroup, sourceImageGroup, transImageGroup2, 1-new_val.doubleValue());
+//						
 						}
 					});
 	            	
