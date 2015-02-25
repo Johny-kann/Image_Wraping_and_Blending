@@ -6,6 +6,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -13,6 +16,7 @@ import com.computer_graphics.constants.files.FileConstants;
 import com.computer_graphics.controller.gui.BlendController;
 import com.computer_graphics.controller.gui.CanvasController;
 import com.computer_graphics.controller.gui.WrapController;
+import com.computer_graphics.controller.gui.WrapperController;
 import com.computer_graphics.logs.LogsImage;
 
 public class FXMLTester extends Application{
@@ -26,7 +30,7 @@ public class FXMLTester extends Application{
 			
 			loader.setBuilderFactory(new JavaFXBuilderFactory());
 			
-			URL location = getClass().getResource(FileConstants.FXML_WRAP);
+			URL location = getClass().getResource(FileConstants.FXML_ROOT);
 		
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			
@@ -39,12 +43,20 @@ public class FXMLTester extends Application{
 			StackPane root2 =  fxmlLoader.load(location.openStream());
 			
 	
-			WrapController 
+			WrapperController 
 //			BlendController 
 			test = fxmlLoader.getController();
 		
 			Scene scene = new Scene(root2,800,600,true);
 		
+			primaryStage.setTitle("Johny's Wrapper");
+			primaryStage.setFullScreen(true);
+		
+			
+			primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.ENTER, KeyCombination.ALT_DOWN)
+			
+			
+			);
 			primaryStage.setScene(scene);
 			
 			primaryStage.show();

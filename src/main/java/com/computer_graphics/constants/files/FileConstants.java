@@ -11,4 +11,5 @@ public class FileConstants {
 	
 	public static final String FXML_WRAP = "/WrapFXML.fxml";
 	public static final String FXML_BLEND = "/BlendFXML.fxml";
+	public static final String FXML_ROOT = "/RootFxml.fxml";
 }
