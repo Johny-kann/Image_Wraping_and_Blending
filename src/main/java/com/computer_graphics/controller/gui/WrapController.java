@@ -83,6 +83,7 @@ public class WrapController {
     @FXML
     void pressMe(ActionEvent event) {
    
+    	
         convertThread.convertImageViews(sourceImageGroup, destImageGroup, destImageGroup,1.0, myClass);
         
         ((Service)convertThread.worker).restart();
@@ -103,7 +104,7 @@ public class WrapController {
    	 Image image3 = new Image(FileConstants.WRAP_DESTINATION_IMAGE_TEMPLATE, true);
    	transImageGroup.setImage(image3);
    	
-   	
+   	newTrans = 1.0;
  //  	 transSlider.valueProperty().set(0.0);
     	
     	

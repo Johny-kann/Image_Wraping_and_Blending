@@ -26,7 +26,7 @@ public class FXMLTester extends Application{
 			
 			loader.setBuilderFactory(new JavaFXBuilderFactory());
 			
-			URL location = getClass().getResource(FileConstants.FXML_BLEND);
+			URL location = getClass().getResource(FileConstants.FXML_WRAP);
 		
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			
@@ -39,8 +39,8 @@ public class FXMLTester extends Application{
 			StackPane root2 =  fxmlLoader.load(location.openStream());
 			
 	
-//			WrapController 
-			BlendController 
+			WrapController 
+//			BlendController 
 			test = fxmlLoader.getController();
 		
 			Scene scene = new Scene(root2,800,600,true);

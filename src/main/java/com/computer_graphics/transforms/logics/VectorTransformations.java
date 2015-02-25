@@ -59,7 +59,7 @@ public class VectorTransformations {
 			{
 				try
 				{
-					Point2D Xsource = getXAveragingAllLines(source, dest, trans, alpha, i, j, image);
+					Point2D Xsource = getXAveragingAllLines(source, dest, alpha, i, j, image);
 					
 					image.getPixelWriter().setColor(i, j, 
 						source.getImage().getPixelReader().getColor(
@@ -92,9 +92,9 @@ public class VectorTransformations {
 				{
 					try
 					{
-						Point2D Xsource = getXAveragingAllLines(source, dest, trans, alpha, i, j, image);
+						Point2D Xsource = getXAveragingAllLines(source, dest, alpha, i, j, image);
 						
-						Point2D XDest = getXAveragingAllLines(dest, source, trans, 1-alpha, i, j, image);
+						Point2D XDest = getXAveragingAllLines(dest, source, 1-alpha, i, j, image);
 						
 			/*			image.getPixelWriter().setColor(i, j, sl.mergeColor(
 							source.getImage().getPixelReader().getColor(
@@ -130,7 +130,7 @@ public class VectorTransformations {
 	 * Computes X by finding the weighted average of all the lines employed by the paper
 	 * @return Point X in source
 	 */
-	public Point2D getXAveragingAllLines(ImageGroup source, ImageGroup destination, ImageGroup trans, Double alpha,int x,int y,Image image)
+	public Point2D getXAveragingAllLines(ImageGroup source, ImageGroup destination, Double alpha,int x,int y,Image image)
 	{
 		SmallLogics sl = new SmallLogics();
 		
