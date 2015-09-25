@@ -15,3 +15,5 @@ Tools and Methodology
 Programming Language
 - Java
 
+# Output
+![output-image](https://github.com/Johny-kann/Image_Wraping_and_Blending/blob/Worker/Output%20Screen%20shot/output.gif)
